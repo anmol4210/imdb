@@ -5,12 +5,14 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.stereotype.Component;
 
 import com.example.demo.dao.ActorDao;
 import com.example.demo.dto.ActorDto;
 import com.example.demo.model.Actor;
 import com.example.demo.utils.HibernateUtils;
 
+@Component
 public class ActorDaoImpl implements ActorDao {
 
 	@Override

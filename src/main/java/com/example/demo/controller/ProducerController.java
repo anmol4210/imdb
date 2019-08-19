@@ -12,7 +12,6 @@ import com.example.demo.service.ProducerService;
 
 @RestController
 @CrossOrigin
-
 public class ProducerController {
 
 	
