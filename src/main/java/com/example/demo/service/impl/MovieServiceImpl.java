@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.example.demo.dao.MovieDao;
 import com.example.demo.dto.MovieDto;
-import com.example.demo.model.Movie;
 import com.example.demo.service.MovieService;
 
 @Component

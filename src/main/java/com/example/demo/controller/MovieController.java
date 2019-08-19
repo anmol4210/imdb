@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.MovieDto;
-import com.example.demo.model.Movie;
 import com.example.demo.service.MovieService;
 
 @RestController
