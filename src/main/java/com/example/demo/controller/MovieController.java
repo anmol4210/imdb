@@ -31,12 +31,12 @@ public class MovieController {
 	}
 	
 	@PostMapping("/movie/add")
-	public String addMovie(@RequestBody MovieDto movie) {
+	public Object addMovie(@RequestBody MovieDto movie) {
 		
 		System.out.println("*******add movie controller********");
 		
 		
-		return "";//+ movieService.addMovie(movie);
+		return movieService.addMovie(movie);
 
 	}
 	
