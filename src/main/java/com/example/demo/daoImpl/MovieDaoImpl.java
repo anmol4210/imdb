@@ -3,16 +3,17 @@ package com.example.demo.daoImpl;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.dao.MovieDao;
+import com.example.demo.dao.ProducerDao;
 import com.example.demo.dto.ActorDto;
 import com.example.demo.dto.MovieDto;
+import com.example.demo.dto.ProducerDto;
 import com.example.demo.dto.ResponseData;
 import com.example.demo.dto.ResponseDto;
 import com.example.demo.model.Actor;
@@ -24,6 +25,8 @@ import com.example.demo.utils.HibernateUtils;
 @Component
 public class MovieDaoImpl implements MovieDao {
 
+	@Autowired
+	private ProducerDao producerDao;
 //	private Session session;
 
 	public MovieDaoImpl() {
@@ -73,31 +76,48 @@ public class MovieDaoImpl implements MovieDao {
 
 	@Override
 	public String addMovie(MovieDto movieDto) {
-		Session session = HibernateUtils.createSession();
-		session.beginTransaction();
 		
-		System.out.println("Movie Name: "+movieDto.getMovieName());
-		System.out.println("Movie Id: "+movieDto.getMovieId());
-		System.out.println("Producer Name: "+movieDto.getProducerName());
-//		System.out.println("Producer Sex: "+movie.getProducer().getSex());
-		System.out.println("Producer Id: "+movieDto.getProducerId());
-		
-		for(ActorDto actor:movieDto.getActors()) {
-			System.out.println("Actor Name: "+actor.getActorName());
-			System.out.println("Actor Id: "+actor.getActorId());
-			
-		}
+//		System.out.println("Movie Name: "+movieDto.getMovieName());
+//		System.out.println("Movie Id: "+movieDto.getMovieId());
+//		System.out.println("Producer Name: "+movieDto.getProducerName());
+////		System.out.println("Producer Sex: "+movie.getProducer().getSex());
+//		System.out.println("Producer Id: "+movieDto.getProducerId());
+//		
+//		for(ActorDto actor:movieDto.getActors()) {
+//			System.out.println("Actor Name: "+actor.getActorName());
+//			System.out.println("Actor Id: "+actor.getActorId());
+//			
+//		}
 		
 		
 		System.out.println("add movie dao");
 		ResponseDto responseDto = new ResponseDto();
 
 		Movie movie = new Movie();
+		
+//System.out.println(movieDto.getProducerId());
+		
+if((movieDto.getProducerId()==0) ) {
+			ProducerDto producerDto = new ProducerDto();
+			producerDto.setProducerName(movieDto.getProducerName());
+			producerDto.setProducerBio(movieDto.getProducerBio());
+			producerDto.setProducerDob(movieDto.getProducerDob());
+			producerDto.setProducerSex(movieDto.getProducerSex());
+			
+			producerDao.addProducer(producerDto);
+			
+			System.out.println(producerDto.getProducerName());
+			System.out.println(producerDto.getProducerId());
+		
+			movieDto.setProducerId(producerDto.getProducerId());
+		}
 		ConvertObject.moviedto2movie(movieDto,movie);
 
+		Session session = HibernateUtils.createSession();
+		session.beginTransaction();
 		
-
-		if (session.save(movie) != null) {
+		int movId = (int) session.save(movie);
+		if (movId != 0) {
 
 			ResponseData responseData = new ResponseData();
 			responseData.setToken("");

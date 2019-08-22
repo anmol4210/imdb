@@ -3,7 +3,6 @@ package com.example.demo.dao;
 import java.util.List;
 
 import com.example.demo.dto.MovieDto;
-import com.example.demo.model.Movie;
 
 public interface MovieDao {
 
